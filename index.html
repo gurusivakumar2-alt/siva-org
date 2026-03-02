@@ -34,4 +34,73 @@
             padding: 10px;
             margin: 8px 0;
             border: none;
-            border-radius: 8p
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 20px;
+            background-color: white;
+            color: #1e88e5;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0f9d58;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            color: #ffcccc;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="loginBox">
+        <h1>Login</h1>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p class="error" id="errorMsg"></p>
+    </div>
+
+    <div class="container hidden" id="welcomeBox">
+        <h1>Welcome to My Site</h1>
+        <p>You are successfully logged in.</p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function login() {
+            var user = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
+            var error = document.getElementById("errorMsg");
+
+            if (user === "admin" && pass === "admin") {
+                document.getElementById("loginBox").classList.add("hidden");
+                document.getElementById("welcomeBox").classList.remove("hidden");
+                error.textContent = "";
+            } else {
+                error.textContent = "Invalid username or password";
+            }
+        }
+
+        function logout() {
+            document.getElementById("welcomeBox").classList.add("hidden");
+            document.getElementById("loginBox").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>
