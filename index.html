@@ -1,104 +1,166 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Siva Login</title>
-<style>
-body {
-  font-family: Arial;
-  background: linear-gradient(135deg, green, blue);
-  margin:0;
-}
+    <title>Siva.org</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f9b0f, #1e3c72);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-/* Top Navigation Bar */
-.topbar{
-  width:100%;
-  background: rgba(0,0,0,0.6);
-  padding:15px;
-  box-sizing:border-box;
-  display:flex;
-  justify-content:flex-end;
-}
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+        }
 
-.topbar button{
-  padding:8px 15px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:bold;
-}
+        h2 {
+            text-align: center;
+            color: #1e3c72;
+        }
 
-/* Center Box */
-.center {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:90vh;
-  color:white;
-}
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
 
-.box{
-  background:rgba(0,0,0,0.4);
-  padding:30px;
-  border-radius:10px;
-  text-align:center;
-}
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0f9b0f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-input{
-  padding:8px;
-  margin:5px;
-  width:200px;
-}
+        button:hover {
+            background-color: #0c7a0c;
+        }
 
-button{
-  padding:8px 15px;
-}
+        .link {
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            color: #1e3c72;
+        }
 
-.hidden{
-  display:none;
-}
-</style>
+        .error {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        #signupForm {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<!-- LOGIN PAGE -->
-<div class="center" id="loginPage">
-  <div class="box">
-    <h2>Login</h2>
-    <input id="u" placeholder="Username"><br>
-    <input id="p" type="password" placeholder="Password"><br>
-    <button onclick="go()">Login</button>
-    <p id="msg" style="color:#ffcccc;"></p>
-  </div>
-</div>
+<div class="container">
 
-<!-- HOME PAGE AFTER LOGIN -->
-<div id="homePage" class="hidden">
-  <div class="topbar">
-    <button onclick="logout()">Sign Out</button>
-  </div>
-  <div class="center">
-    <div class="box">
-      <h1>Welcome to My Site</h1>
-      <p>You are successfully logged in.</p>
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+        <h2>Login</h2>
+
+        <input type="text" id="loginUsername" placeholder="Username">
+        <input type="password" id="loginPassword" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+
+        <p class="error" id="loginError"></p>
+
+        <div class="link" onclick="showSignup()">
+            Don't have account? Sign Up
+        </div>
     </div>
-  </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signupForm">
+        <h2>Create Account</h2>
+
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+        <input type="text" id="signupUsername" placeholder="Username">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+        <button onclick="createAccount()">Create</button>
+
+        <p class="error" id="signupError"></p>
+
+        <div class="link" onclick="showLogin()">
+            Already have account? Login
+        </div>
+    </div>
+
 </div>
 
 <script>
-function go(){
- if(document.getElementById('u').value==='admin' &&
-    document.getElementById('p').value==='admin'){
-    document.getElementById('loginPage').classList.add('hidden');
-    document.getElementById('homePage').classList.remove('hidden');
- }else{
-    document.getElementById('msg').innerText='Wrong credentials';
- }
-}
 
-function logout(){
- document.getElementById('homePage').classList.add('hidden');
- document.getElementById('loginPage').classList.remove('hidden');
-}
+    let savedUser = {
+        username: "admin",
+        password: "admin"
+    };
+
+    function login() {
+        let username = document.getElementById("loginUsername").value;
+        let password = document.getElementById("loginPassword").value;
+        let error = document.getElementById("loginError");
+
+        if (username === savedUser.username && password === savedUser.password) {
+            alert("Login Successful!");
+        } else {
+            error.innerText = "Invalid username or password";
+        }
+    }
+
+    function createAccount() {
+        let username = document.getElementById("signupUsername").value;
+        let password = document.getElementById("signupPassword").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        let error = document.getElementById("signupError");
+
+        if (password !== confirmPassword) {
+            error.innerText = "Passwords do not match!";
+            return;
+        }
+
+        if (password.length < 6) {
+            error.innerText = "Password must be at least 6 characters.";
+            return;
+        }
+
+        savedUser.username = username;
+        savedUser.password = password;
+
+        alert("Account Created Successfully!");
+        showLogin();
+    }
+
+    function showSignup() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "block";
+    }
+
+    function showLogin() {
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+    }
+
 </script>
 
 </body>
