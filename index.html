@@ -6,56 +6,98 @@
 body {
   font-family: Arial;
   background: linear-gradient(135deg, green, blue);
+  margin:0;
+}
+
+/* Top Navigation Bar */
+.topbar{
+  width:100%;
+  background: rgba(0,0,0,0.6);
+  padding:15px;
+  box-sizing:border-box;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.topbar button{
+  padding:8px 15px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* Center Box */
+.center {
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  height:90vh;
   color:white;
 }
+
 .box{
   background:rgba(0,0,0,0.4);
   padding:30px;
   border-radius:10px;
   text-align:center;
 }
+
 input{
   padding:8px;
   margin:5px;
   width:200px;
 }
+
 button{
   padding:8px 15px;
+}
+
+.hidden{
+  display:none;
 }
 </style>
 </head>
 <body>
 
-<div class="box" id="login">
-<h2>Login</h2>
-<input id="u" placeholder="Username"><br>
-<input id="p" type="password" placeholder="Password"><br>
-<button onclick="go()">Login</button>
-<p id="msg"></p>
+<!-- LOGIN PAGE -->
+<div class="center" id="loginPage">
+  <div class="box">
+    <h2>Login</h2>
+    <input id="u" placeholder="Username"><br>
+    <input id="p" type="password" placeholder="Password"><br>
+    <button onclick="go()">Login</button>
+    <p id="msg" style="color:#ffcccc;"></p>
+  </div>
 </div>
 
-<div class="box" id="home" style="display:none;">
-<h2>Welcome to My Site</h2>
-<button onclick="logout()">Logout</button>
+<!-- HOME PAGE AFTER LOGIN -->
+<div id="homePage" class="hidden">
+  <div class="topbar">
+    <button onclick="logout()">Sign Out</button>
+  </div>
+  <div class="center">
+    <div class="box">
+      <h1>Welcome to My Site</h1>
+      <p>You are successfully logged in.</p>
+    </div>
+  </div>
 </div>
 
 <script>
 function go(){
  if(document.getElementById('u').value==='admin' &&
     document.getElementById('p').value==='admin'){
-    document.getElementById('login').style.display='none';
-    document.getElementById('home').style.display='block';
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('homePage').classList.remove('hidden');
  }else{
     document.getElementById('msg').innerText='Wrong credentials';
  }
 }
+
 function logout(){
- document.getElementById('home').style.display='none';
- document.getElementById('login').style.display='block';
+ document.getElementById('homePage').classList.add('hidden');
+ document.getElementById('loginPage').classList.remove('hidden');
 }
 </script>
 
