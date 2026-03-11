@@ -1,206 +1,620 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Welcome to My Site</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Siva Sign In</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --danger: #dc2626;
+      --success-bg: #ecfdf5;
+      --success-border: #bbf7d0;
+      --success-text: #166534;
+    }
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(-45deg, #00c6ff, #0072ff, #00b09b, #96c93d);
-            background-size: 400% 400%;
-            animation: gradientMove 10s ease infinite;
-        }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    a {
+      text-decoration: none;
+    }
 
-        .container {
-            width: 380px;
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-            color: white;
-        }
+    .brand {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--primary);
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 5px;
-        }
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 40px 20px;
+    }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 10px;
-            border: none;
-            outline: none;
-            font-size: 14px;
-        }
+    .intro,
+    .auth-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.07);
+    }
 
-        input::placeholder {
-            color: #555;
-        }
+    .intro {
+      padding: 44px;
+      background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 10px;
-            border: none;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            background: linear-gradient(to right, #00b09b, #96c93d);
-            color: white;
-            transition: 0.3s ease;
-        }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
+    .intro h1 {
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 18px;
+    }
 
-        .link {
-            text-align: center;
-            margin-top: 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+    .intro p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #475569;
+      max-width: 520px;
+      margin-bottom: 26px;
+    }
 
-        .link:hover {
-            text-decoration: underline;
-        }
+    .points {
+      display: grid;
+      gap: 12px;
+    }
 
-        .error {
-            text-align: center;
-            color: #ffdddd;
-            font-size: 13px;
-            margin-top: 5px;
-        }
+    .point {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      color: #1e293b;
+      font-weight: 600;
+    }
 
-        #signupForm {
-            display: none;
-        }
-    </style>
+    .point-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    .auth-wrap {
+      padding: 26px;
+    }
+
+    .brand-wrap {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      height: 48px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      background: #ffffff;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .card h2 {
+      font-size: 28px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .social-btn {
+      height: 46px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .social-btn:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      position: relative;
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .field input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 0 14px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .password-field input {
+      padding-right: 92px;
+    }
+
+    .field input:focus {
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.16);
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 35px;
+      height: 30px;
+      padding: 0 10px;
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      color: var(--primary);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--danger);
+      min-height: 16px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 50px;
+      border: none;
+      border-radius: 14px;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-top: 4px;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .form-success {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+      font-size: 13px;
+      display: none;
+    }
+
+    .form-success.show {
+      display: block;
+    }
+
+    .switch-text {
+      margin-top: 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .switch-text a {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .brand {
+        font-size: 30px;
+      }
+
+      .intro,
+      .auth-wrap {
+        padding: 20px;
+      }
+
+      .row,
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
-
-<div class="container">
-
-    <h1>Welcome to My Site</h1>
-
-    <!-- LOGIN -->
-    <div id="loginForm">
-        <h2>Login</h2>
-
-        <input type="text" id="loginUsername" placeholder="Username">
-        <input type="password" id="loginPassword" placeholder="Password">
-
-        <button onclick="login()">Login</button>
-
-        <p class="error" id="loginError"></p>
-
-        <div class="link" onclick="showSignup()">
-            Don't have an account? Sign Up
+  <main class="page">
+    <section class="shell">
+      <div class="intro">
+        <div class="badge">Secure authentication</div>
+        <h1>Sign in or create your Siva account</h1>
+        <p>
+          Use your account to access your dashboard, manage users, and keep everything in one secure place.
+          New users can create an account in a few seconds.
+        </p>
+        <div class="points">
+          <div class="point"><span class="point-dot"></span> Clean blue SaaS-style design</div>
+          <div class="point"><span class="point-dot"></span> Social sign in buttons</div>
+          <div class="point"><span class="point-dot"></span> Validation and password visibility toggle</div>
         </div>
-    </div>
+      </div>
 
-    <!-- SIGNUP -->
-    <div id="signupForm">
-        <h2>Create Account</h2>
-
-        <input type="text" id="firstName" placeholder="First Name">
-        <input type="text" id="lastName" placeholder="Last Name">
-        <input type="text" id="signupUsername" placeholder="Username">
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="signupPassword" placeholder="Password">
-        <input type="password" id="confirmPassword" placeholder="Confirm Password">
-
-        <button onclick="createAccount()">Create Account</button>
-
-        <p class="error" id="signupError"></p>
-
-        <div class="link" onclick="showLogin()">
-            Already have an account? Login
+      <div class="auth-wrap">
+        <div class="brand-wrap">
+          <div class="brand">Siva</div>
         </div>
-    </div>
 
-</div>
+        <div class="tabs">
+          <button class="tab-btn active" type="button" data-tab="signin">Sign In</button>
+          <button class="tab-btn" type="button" data-tab="signup">Sign Up</button>
+        </div>
 
-<script>
+        <div class="card">
+          <section class="panel active" id="signin-panel">
+            <h2>Welcome back</h2>
+            <p>Sign in with your username and password.</p>
 
-    let savedUser = {
-        username: "admin",
-        password: "admin"
-    };
+            <div class="social-grid">
+              <button class="social-btn" type="button">Google</button>
+              <button class="social-btn" type="button">Microsoft</button>
+            </div>
 
-    function login() {
-        let username = document.getElementById("loginUsername").value;
-        let password = document.getElementById("loginPassword").value;
-        let error = document.getElementById("loginError");
+            <div class="divider">or continue with username</div>
 
-        if (username === savedUser.username && password === savedUser.password) {
-            alert("Login Successful!");
-        } else {
-            error.innerText = "Invalid username or password";
-        }
+            <form class="form-grid" id="signin-form" novalidate>
+              <div class="field">
+                <label for="signin-username">Username</label>
+                <input id="signin-username" name="username" type="text" placeholder="Enter your username" />
+                <div class="field-error" id="signin-username-error"></div>
+              </div>
+
+              <div class="field password-field">
+                <label for="signin-password">Password</label>
+                <input id="signin-password" name="password" type="password" placeholder="Enter your password" />
+                <button class="toggle-password" type="button" data-target="signin-password">Show</button>
+                <div class="field-error" id="signin-password-error"></div>
+              </div>
+
+              <button class="submit-btn" type="submit">Sign In</button>
+              <div class="form-success" id="signin-success">Sign in form looks valid and is ready to connect to your backend API.</div>
+            </form>
+
+            <div class="switch-text">Need an account? <a href="#signup" id="show-signup">Create one</a></div>
+          </section>
+
+          <section class="panel" id="signup-panel">
+            <h2>Create account</h2>
+            <p>Fill in your details to create your Siva account.</p>
+
+            <div class="social-grid">
+              <button class="social-btn" type="button">Google</button>
+              <button class="social-btn" type="button">Microsoft</button>
+            </div>
+
+            <div class="divider">or create account with email</div>
+
+            <form class="form-grid" id="signup-form" novalidate>
+              <div class="row">
+                <div class="field">
+                  <label for="first-name">First name</label>
+                  <input id="first-name" name="firstName" type="text" placeholder="First name" />
+                  <div class="field-error" id="first-name-error"></div>
+                </div>
+                <div class="field">
+                  <label for="last-name">Last name</label>
+                  <input id="last-name" name="lastName" type="text" placeholder="Last name" />
+                  <div class="field-error" id="last-name-error"></div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="Enter your email" />
+                <div class="field-error" id="email-error"></div>
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone number</label>
+                <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" />
+                <div class="field-error" id="phone-error"></div>
+              </div>
+
+              <div class="field password-field">
+                <label for="new-password">Password</label>
+                <input id="new-password" name="newPassword" type="password" placeholder="Create a password" />
+                <button class="toggle-password" type="button" data-target="new-password">Show</button>
+                <div class="field-error" id="new-password-error"></div>
+              </div>
+
+              <button class="submit-btn" type="submit">Sign Up</button>
+              <div class="form-success" id="signup-success">Sign up form looks valid and is ready to connect to your backend API.</div>
+            </form>
+
+            <div class="switch-text">Already have an account? <a href="#signin" id="show-signin">Sign in</a></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const signInPanel = document.getElementById('signin-panel');
+    const signUpPanel = document.getElementById('signup-panel');
+    const showSignup = document.getElementById('show-signup');
+    const showSignin = document.getElementById('show-signin');
+    const toggleButtons = document.querySelectorAll('.toggle-password');
+    const signInForm = document.getElementById('signin-form');
+    const signUpForm = document.getElementById('signup-form');
+
+    function activateTab(tab) {
+      tabButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.tab === tab));
+      signInPanel.classList.toggle('active', tab === 'signin');
+      signUpPanel.classList.toggle('active', tab === 'signup');
+      history.replaceState(null, '', tab === 'signup' ? '#signup' : '#signin');
     }
 
-    function createAccount() {
-        let username = document.getElementById("signupUsername").value;
-        let password = document.getElementById("signupPassword").value;
-        let confirmPassword = document.getElementById("confirmPassword").value;
-        let error = document.getElementById("signupError");
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+    });
 
-        if (password !== confirmPassword) {
-            error.innerText = "Passwords do not match!";
-            return;
-        }
+    showSignup.addEventListener('click', (e) => {
+      e.preventDefault();
+      activateTab('signup');
+    });
 
-        if (password.length < 6) {
-            error.innerText = "Password must be at least 6 characters.";
-            return;
-        }
+    showSignin.addEventListener('click', (e) => {
+      e.preventDefault();
+      activateTab('signin');
+    });
 
-        savedUser.username = username;
-        savedUser.password = password;
+    toggleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const input = document.getElementById(button.dataset.target);
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        button.textContent = isHidden ? 'Hide' : 'Show';
+      });
+    });
 
-        alert("Account Created Successfully!");
-        showLogin();
+    function setError(id, message) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = message;
     }
 
-    function showSignup() {
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("signupForm").style.display = "block";
+    function clearErrors(ids) {
+      ids.forEach((id) => setError(id, ''));
     }
 
-    function showLogin() {
-        document.getElementById("signupForm").style.display = "none";
-        document.getElementById("loginForm").style.display = "block";
+    function validEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
     }
 
-</script>
+    function validPhone(value) {
+      return /^[0-9+()\-\s]{7,20}$/.test(value);
+    }
 
+    signInForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearErrors(['signin-username-error', 'signin-password-error']);
+      document.getElementById('signin-success').classList.remove('show');
+
+      const username = document.getElementById('signin-username').value.trim();
+      const password = document.getElementById('signin-password').value.trim();
+      let ok = true;
+
+      if (!username) {
+        setError('signin-username-error', 'Username is required.');
+        ok = false;
+      }
+      if (!password) {
+        setError('signin-password-error', 'Password is required.');
+        ok = false;
+      }
+
+      if (ok) {
+        document.getElementById('signin-success').classList.add('show');
+      }
+    });
+
+    signUpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearErrors(['first-name-error', 'last-name-error', 'email-error', 'phone-error', 'new-password-error']);
+      document.getElementById('signup-success').classList.remove('show');
+
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName = document.getElementById('last-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('new-password').value.trim();
+      let ok = true;
+
+      if (!firstName) {
+        setError('first-name-error', 'First name is required.');
+        ok = false;
+      }
+      if (!lastName) {
+        setError('last-name-error', 'Last name is required.');
+        ok = false;
+      }
+      if (!email) {
+        setError('email-error', 'Email is required.');
+        ok = false;
+      } else if (!validEmail(email)) {
+        setError('email-error', 'Enter a valid email address.');
+        ok = false;
+      }
+      if (!phone) {
+        setError('phone-error', 'Phone number is required.');
+        ok = false;
+      } else if (!validPhone(phone)) {
+        setError('phone-error', 'Enter a valid phone number.');
+        ok = false;
+      }
+      if (!password) {
+        setError('new-password-error', 'Password is required.');
+        ok = false;
+      } else if (password.length < 6) {
+        setError('new-password-error', 'Password must be at least 6 characters.');
+        ok = false;
+      }
+
+      if (ok) {
+        document.getElementById('signup-success').classList.add('show');
+      }
+    });
+
+    if (window.location.hash === '#signup') {
+      activateTab('signup');
+    } else {
+      activateTab('signin');
+    }
+  </script>
 </body>
 </html>
