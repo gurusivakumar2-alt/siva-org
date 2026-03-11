@@ -68,11 +68,11 @@
     }
 
     .intro {
-      padding: 44px;
+      padding: 26px 44px 44px;
       background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .badge {
@@ -102,39 +102,33 @@
       max-width: 520px;
       margin-bottom: 26px;
     }
-
-    .points {
-      display: grid;
-      gap: 12px;
-    }
-
-    .point {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid #dbeafe;
-      border-radius: 16px;
-      color: #1e293b;
-      font-weight: 600;
-    }
-
-    .point-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--primary);
-      flex: 0 0 auto;
-    }
-
     .auth-wrap {
       padding: 26px;
     }
 
     .brand-wrap {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       margin-bottom: 18px;
+    }
+
+    .brand-mark {
+      width: 56px;
+      height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #c08497 0%, #7f1d3f 45%, #5b102d 100%);
+      box-shadow: 0 12px 30px rgba(127, 29, 63, 0.26);
+    }
+
+    .brand-mark svg {
+      width: 34px;
+      height: 34px;
+      display: block;
     }
 
     .tabs {
@@ -372,21 +366,26 @@
   <main class="page">
     <section class="shell">
       <div class="intro">
+        <div style="font-size:28px;font-weight:800;color:#2563eb;margin-bottom:8px;letter-spacing:-0.02em;text-transform:none;">Welcome to your Siva workspace</div>
         <div class="badge">Secure authentication</div>
         <h1>Sign in or create your Siva account</h1>
         <p>
           Use your account to access your dashboard, manage users, and keep everything in one secure place.
           New users can create an account in a few seconds.
         </p>
-        <div class="points">
-          <div class="point"><span class="point-dot"></span> Clean blue SaaS-style design</div>
-          <div class="point"><span class="point-dot"></span> Social sign in buttons</div>
-          <div class="point"><span class="point-dot"></span> Validation and password visibility toggle</div>
-        </div>
+      </div>
       </div>
 
       <div class="auth-wrap">
         <div class="brand-wrap">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="23" stroke="white" stroke-width="4.5" opacity="0.35"/>
+              <path d="M41.5 19.5C39.2 17.4 35.8 16.2 31.8 16.2C24.8 16.2 19.7 19.8 19.7 24.9C19.7 29.1 22.8 31.2 29 32.6L33.4 33.6C37.6 34.6 39.2 35.8 39.2 38C39.2 41 36.1 43 31.4 43C27.1 43 23.3 41.4 20.4 38.3" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22.5 44.5C24.8 46.6 28.2 47.8 32.2 47.8C39.2 47.8 44.3 44.2 44.3 39.1C44.3 34.9 41.2 32.8 35 31.4L30.6 30.4C26.4 29.4 24.8 28.2 24.8 26C24.8 23 27.9 21 32.6 21C36.9 21 40.7 22.6 43.6 25.7" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M49 18C52.5 21.3 54.7 26 54.7 31.2" stroke="white" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="brand">Siva</div>
         </div>
 
